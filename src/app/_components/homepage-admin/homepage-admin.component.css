@@ -1,0 +1,33 @@
+:host {
+    display: block;
+    /* border: 2px solid steelblue; */
+}
+h1 {
+    text-align: center;
+    font-family: fantasy;
+    background-color: rgb(236, 240, 243);
+    border: 10px groove lightsteelblue;
+    padding: 6px;
+}
+.border-setting {
+    border: 10px groove lightsteelblue;
+    padding: 15px;
+}
+.container-background {
+    background-color: rgb(236, 240, 243);
+    padding: 20px;
+}
+button {
+    border-radius: 1rem;
+    /* padding: .375rem 1rem; */
+}
+.logout {
+    float: right;
+    display: flex;
+}
+.logout p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-right: 20px;
+    font-size: larger;
+}

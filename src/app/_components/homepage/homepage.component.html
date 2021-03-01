@@ -1,0 +1,39 @@
+<div class="logout">
+    <p><i class="fa fa-user"></i> {{userInfo.username}}</p>
+    <button type='button' class="btn btn-md btn-outline-success" (click)="logout()">
+        <i class="fa fa-sign-out"></i> Logout</button>
+</div>
+<div class="jumbotron jumbotron-fluid jumbotron-blue text-center">
+    <h2 class="display-4">Election Polling</h2>
+</div>
+<div class="container border-setting">
+    <div class="row question">
+        <div class="col-sm-12">
+            <h3>{{question}}</h3>
+        </div>
+    </div>
+    <div class="row options-css">
+        <div class="col-sm-6 vertical-center">
+            <!-- <p *ngIf="alreadyVoted">
+                You've already voted on this poll for <strong>{{alreadyVoted}}</strong>..
+            </p> -->
+            <form [formGroup]="voteForm" novalidate (ngSubmit)="submitForm(voteForm)">
+                <fieldset [disabled]="alreadyVoted">
+                    <ul class="options">
+                        <li *ngFor="let option of options; let i = index">
+                            <input type="radio" id="{{i}}" value="{{option.name}}" name="voteOption"
+                                formControlName="voteOption" [checked]="option.name == alreadyVoted" />
+                            <label for="{{i}}" class="btn btn-sm btn-outline-primary">{{option.name}}</label>
+                        </li>
+                    </ul>
+                </fieldset>
+
+                <button *ngIf="!alreadyVoted" type='submit' class="btn btn-md btn-outline-success"
+                    [disabled]="!voteForm.valid || alreadyVoted"><i class="zmdi zmdi-check"></i> Vote</button>
+                <p class="already-voted" *ngIf="alreadyVoted">
+                    You've already voted on this poll for <strong>{{alreadyVoted}}</strong>.
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

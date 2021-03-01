@@ -1,0 +1,31 @@
+.question {
+    background-color: powderblue
+}
+.border-setting {
+    border: 10px groove lightsteelblue;
+    background-color: powderblue
+}
+.options-css {
+    background-color: white;
+    padding-bottom: 5px;
+}
+ul{
+    list-style-type: decimal;
+    list-style-position: inside;
+}
+ul li {
+    padding-top: 10px;
+}
+.already-voted {
+    color: brown
+} 
+.logout {
+    float: right;
+    display: flex;
+}
+.logout p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-right: 20px;
+    font-size: larger;
+}
