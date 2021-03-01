@@ -14,7 +14,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
   ) {
-    this.userSubject = new BehaviorSubject<User>(new User());
+    this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')!) || new User);
     this.user = this.userSubject.asObservable();
   }
 
@@ -22,18 +22,16 @@ export class AuthService {
     return this.http.post<User>(`http://localhost:3000/users/authenticate`, { username, password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-        // localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
+        this.user = this.userSubject.asObservable();
         return user;
       }));
   }
 
   logout() {
     this.userSubject.next(new User());
-    this.userSubject.unsubscribe();
-  }
-  
-  ngOnDestroy() {
-    this.userSubject.unsubscribe();
+    // this.userSubject.unsubscribe();
+    localStorage.removeItem('user');
   }
 }

@@ -5,6 +5,8 @@ import { HomepageComponent } from './_components/homepage/homepage.component';
 import { HomepageAdminComponent } from './_components/homepage-admin/homepage-admin.component';
 
 const routes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: '#', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'homepage_admin', component: HomepageAdminComponent }
