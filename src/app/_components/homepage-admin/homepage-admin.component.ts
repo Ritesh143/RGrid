@@ -41,7 +41,7 @@ export class HomepageAdminComponent implements OnInit {
         this.userInfo = user;
         this.socketService.socket.emit('getpolldata');
         this.socketService.socket.on('polldataUpdate', (pollData: PollData) => {
-          console.log(pollData.question);
+          console.log("On polldataUpdate event triggered");
           this.getAndProcessPollData(pollData);
         });
       } else {
@@ -55,7 +55,7 @@ export class HomepageAdminComponent implements OnInit {
     this.buildForm();
     this.staticOptions = []
     this.options = [];
-    if (data.id == undefined) {
+    if (data==null || data.id == undefined) {
       this.currentRoute = 'new';
       this.addOption();
     } else {
@@ -68,7 +68,7 @@ export class HomepageAdminComponent implements OnInit {
         control.push(this._fb.group({
           name: itr.name,
           voteCount: itr.voteCount,
-          votesBy: itr.votesBy || [],
+          votesBy: [itr.votesBy] || [],
         }));
         this.staticOptions.push(itr.name);
       };
@@ -98,7 +98,8 @@ export class HomepageAdminComponent implements OnInit {
     this.fbForm = this._fb.group({
       question!: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(72)]],
       options: this._fb.array([
-      ])
+      ]),
+      _id: null
     });
   }
 
@@ -128,6 +129,9 @@ export class HomepageAdminComponent implements OnInit {
         });
       }
       if (temp == null) {
+        if(formGroup.votesBy == null){
+          formGroup.votesBy = [];
+        }
         this.options.push(formGroup);
       } else {
         this.options.push(temp);
@@ -136,7 +140,8 @@ export class HomepageAdminComponent implements OnInit {
     this.updatedData = {
       options: this.options,
       question: model.controls.question.value,
-      id: "1"
+      id: "1",
+      _id: this.pollData._id,
     };
 
     this.socketService.socket.emit('savepolldata', this.updatedData);
