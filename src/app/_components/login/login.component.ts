@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { User } from '../../_models';
 import { AuthService } from '../../_service/auth.service';
 
 @Component({
@@ -18,18 +14,12 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string = '/homepage';
   returnUrlAdmin: string = '/homepage_admin';
-  // private userSubject: BehaviorSubject<User>;
-  // public user: Observable<User>
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     private _auth: AuthService,
-  ) {
-    // this.userSubject = new BehaviorSubject<User>(new);
-    // this.user = this.userSubject.asObservable();
-  }
+  ) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -43,9 +33,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       }
     });
-
-    // get return url from route parameters or default to '/'
-    // this.returnUrl = '/homepage';
   }
   get f() { return this.form.controls; }
 

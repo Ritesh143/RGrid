@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http'
 import { PollData, User, Option } from '../../_models';
-import { retry, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthService } from '../../_service/auth.service';
 import { Router } from '@angular/router';
@@ -17,7 +15,6 @@ export class HomepageComponent implements OnInit {
   private pollData!: PollData;
   i!: number;
   public options: Option[] = new Array<Option>();
-  private voteCount = '';
   public question: string = '';
   public alreadyVoted: string = '';
   public voteForm: FormGroup = new FormGroup({});
@@ -26,7 +23,6 @@ export class HomepageComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private http: HttpClient,
     private auth: AuthService,
     private router: Router,
     private socketService: SocketioService
@@ -40,20 +36,18 @@ export class HomepageComponent implements OnInit {
         this.voteForm = this._fb.group({
           voteOption: ['', Validators.required]
         });
-        // this.http.get<PollData>(`http://localhost:3000/polldata`).subscribe((data) => {
-        //   this.processform(data);
-        // });
+
         this.socketService.socket.emit('getpolldata');
         this.socketService.socket.on('polldataUpdate', (pollData: PollData) => {
           if (pollData.question)
-          this.processform(pollData);
+            this.processform(pollData);
         });
       } else {
         this.router.navigate([this.loginUrl]);
       }
     });
   }
-
+  // this will init/reset/update the form with the values.
   processform(data: PollData) {
     this.options = [];
     this.alreadyVoted = '';
@@ -90,22 +84,9 @@ export class HomepageComponent implements OnInit {
     this.alreadyVoted = selectedOption;
     this.socketService.socket.emit('savepolldata', this.pollData);
     alert('You have successfully voted for ' + selectedOption);
-    // this.socketService.socket.on('polldataUpdate', (pollData: PollData) => {
-    //   if (pollData.question)
-    //   this.processform(pollData);
-    // });
-    // this.http.put(`http://localhost:3000/polldata`, this.pollData)
-    //   .pipe(
-    //     retry(1),
-    //     catchError(this.processError)
-    //   )
-    //   .subscribe(res => {
-    //     console.log('updated'+JSON.stringify(res));
-    //     alert('You have successfully voted for '+ selectedOption);
-    //   });
   }
 
-  logout(){
+  logout() {
     this.auth.logout();
   }
 }
