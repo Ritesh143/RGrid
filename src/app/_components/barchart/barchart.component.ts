@@ -26,4 +26,14 @@ export class BarchartComponent implements OnInit {
   constructor() { }
   ngOnInit() {
   }
+
+  export_graph = <HTMLCanvasElement>document.getElementById("download");
+  downloadLink: string = '';
+
+  exportGraph(event: any){
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
+    // set the anchors 'download' attibute (name of the file to be downloaded)
+    anchor.download = "test.png";
+  }
 }
