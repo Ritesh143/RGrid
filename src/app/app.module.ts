@@ -11,6 +11,14 @@ import { HomepageComponent } from './_components/homepage/homepage.component';
 import { HomepageAdminComponent } from './_components/homepage-admin/homepage-admin.component';
 import { BarchartComponent } from './_components/barchart/barchart.component';
 import { SocketioService } from './socketio.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +32,13 @@ import { SocketioService } from './socketio.service';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [SocketioService],
   bootstrap: [AppComponent]
