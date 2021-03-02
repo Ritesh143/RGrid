@@ -14,9 +14,6 @@
     </div>
     <div class="row options-css">
         <div class="col-sm-6 vertical-center">
-            <!-- <p *ngIf="alreadyVoted">
-                You've already voted on this poll for <strong>{{alreadyVoted}}</strong>..
-            </p> -->
             <form [formGroup]="voteForm" novalidate (ngSubmit)="submitForm(voteForm)">
                 <fieldset [disabled]="alreadyVoted">
                     <ul class="options">
@@ -28,8 +25,8 @@
                     </ul>
                 </fieldset>
 
-                <button *ngIf="!alreadyVoted" type='submit' class="btn btn-md btn-outline-success"
-                    [disabled]="!voteForm.valid || alreadyVoted"><i class="zmdi zmdi-check"></i> Vote</button>
+                <button *ngIf="!alreadyVoted" type='submit'
+                    [disabled]="!voteForm.valid" mat-raised-button color="primary"><i class="zmdi zmdi-check"></i> Vote</button>
                 <p class="already-voted" *ngIf="alreadyVoted">
                     You've already voted on this poll for <strong>{{alreadyVoted}}</strong>.
                 </p>
